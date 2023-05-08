@@ -1,0 +1,36 @@
+# Scratch means scratch
+scratch/
+
+# Allow to commit empty folders
+!.gitkeep
+
+# MacOS files
+.DS_Store
+
+# Various temp files
+*~
+._*
+
+# Autosave
+*.asv
+
+# R
+.Rhistory
+.Rapp.history
+.RData
+
+# Matlab
+pathdef.m
+
+# Pandemics
+pandemics/
+
+code/.temp/
+
+code/temp/
+
+results*
+
+code/simulations/temp/
+
+*.log

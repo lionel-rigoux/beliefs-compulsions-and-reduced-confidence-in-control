@@ -1,0 +1,9 @@
+readout,Spearmann rho,p-value
+"has compulsion","-0.566","0.009** "
+"has wash compulsion","-0.566","0.009** "
+"has check compulsion","-0.020","0.450   "
+"has mixed compulsion","-0.099","0.354   "
+"number bouts","-0.430","0.058   "
+"duration bouts","-0.638","0.002** "
+"proportion in bouts","-0.625","0.003** "
+"belief update","0.717","<0.001***"

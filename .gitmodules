@@ -1,0 +1,15 @@
+[submodule "code/third-party/yaml"]
+	path = code/third-party/yaml
+	url = https://github.com/MartinKoch123/yaml
+[submodule "code/third-party/measures-of-effect-size-toolbox"]
+	path = code/third-party/measures-of-effect-size-toolbox
+	url = https://github.com/hhentschke/measures-of-effect-size-toolbox.git
+[submodule "code/third-party/pretty-plot"]
+	path = code/third-party/pretty-plot
+	url = https://github.com/lionel-rigoux/pretty-plot.git
+[submodule "code/third-party/simplex"]
+	path = code/third-party/simplex
+	url = https://github.com/lionel-rigoux/simplex.git
+[submodule "code/third-party/gramm"]
+	path = code/third-party/gramm
+	url = https://github.com/piermorel/gramm

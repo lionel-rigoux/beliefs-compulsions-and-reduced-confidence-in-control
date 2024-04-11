@@ -13,13 +13,28 @@ classdef agent < matlab.mixin.Copyable
     end
     
     methods
-        function obj = agent (allow_no_check)
-            if nargin == 1
-                obj.allow_no_check = allow_no_check;
+
+        function obj = agent (varargin)
+            % a = agent () create an agent 
+            % by default, all parameters are random and policy is full
+            % a = agent (true): allow for policies without any check
+            % a = agents (params): set world parameters to params
+            if ~ isempty (varargin) 
+                if islogical (varargin{1})            
+                    obj.allow_no_check = varargin{1};
+                elseif isstruct (varargin{1})
+                    params = varargin{1};
+                end
             end
-            while ~ obj.isFullPolicy ()
-                obj.params.world = randParams ();
+
+            if exist ("params","var")
+                obj.params.world = params;
                 obj.optimizePolicy ();
+            else
+                while ~ obj.isFullPolicy ()
+                    obj.params.world = randParams ();
+                    obj.optimizePolicy ();
+                end
             end
         end
         
@@ -35,8 +50,14 @@ classdef agent < matlab.mixin.Copyable
             end
         end
         
-        function changeSubjective (obj, paramName)
+        function changeSubjective (obj, paramName, paramValue)
             obj.policy = [];
+            if nargin == 3
+                obj.params.subjective = obj.params.world;
+                obj.params.subjective.(paramName) = paramValue;
+                obj.optimizePolicy ();
+                return
+            end
             while ~ obj.isFullPolicy ()
                 newParams = randParams ();
                 if nargin < 2

@@ -1,13 +1,12 @@
 function plot_simulation(agent)
 
-S = 50 ;
-n = 500;
 
 hold on;
-for iS = 1:S
+for iS = 1:min(numel(agent.simulation),10)
     
     simul =  agent.simulation(iS);
     
+    n = min (numel(simul.action),200);
     x = 1:n ;
     y = -2*iS*ones(1,n);
     
@@ -16,11 +15,10 @@ for iS = 1:S
     scatter(x,y,30,simul.action(1:n),'filled')
     colormap(gca,colorsPOMDP());
 
-    axis off;
-    %axis equal
-
 end
 
+set(gca,'Clim',[1 3])
+axis off;
 
 f=gcf;
 f.Color = 'w';

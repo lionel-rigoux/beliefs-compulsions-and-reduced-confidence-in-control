@@ -1,4 +1,4 @@
-function obj = diagnose (obj)
+function diagnostic = diagnose (obj)
 % this function analyse the simulated behavior of an agent and compute
 % diagnostics statistics
 
@@ -21,34 +21,35 @@ t = arrayfun(@(si) struct2table(si),s, 'UniformOutput',false);
 s = table2struct(vertcat(t{:}), 'ToScalar',true);
 
 %% compute stats
-stats = struct;
+diagnostic = struct;
 
 % compulsive bouts
-stats = countBouts (stats, s.action, 'wash');
-stats = countBouts (stats, s.action, 'check');
-stats = countBouts (stats, s.action, 'mixed');
-stats = countBouts (stats, s.action, 'all');
+diagnostic = countBouts (diagnostic, s.action, 'wash');
+diagnostic = countBouts (diagnostic, s.action, 'check');
+diagnostic = countBouts (diagnostic, s.action, 'mixed');
+diagnostic = countBouts (diagnostic, s.action, 'all');
 
 % assess repetition probability
-stats = getContingencies (stats, s.action);
+diagnostic = getContingencies (diagnostic, s.action);
 
 % action chaining
-stats = computeFrequencies (stats, s);
+diagnostic = computeFrequencies (diagnostic, s);
 
 % beliefs
-stats = averageBeliefs (stats, s);
-stats = beliefUpdate (stats, s);
+diagnostic = averageBeliefs (diagnostic, s);
+diagnostic = beliefUpdate (diagnostic, s);
 
-% as structre
-obj.diagnostic = stats;
+% summary
+diagnostic.doCheck = diagnostic.freq_check > 0; 
+diagnostic.doWash = diagnostic.freq_wash > 0; 
+diagnostic.doCook = diagnostic.freq_cook > 0; 
+diagnostic.hasWashCompulsion = diagnostic.wash_nBouts > 0;
+diagnostic.hasCheckCompulsion = diagnostic.check_nBouts > 0;
+diagnostic.hasMixedCompulsion = diagnostic.mixed_nBouts > 0;
+diagnostic.hasCompulsion = diagnostic.all_nBouts > 0;
 
-obj.diagnostic.doCheck = obj.diagnostic.freq_check > 0; 
-obj.diagnostic.doWash = obj.diagnostic.freq_wash > 0; 
-obj.diagnostic.doCook = obj.diagnostic.freq_cook > 0; 
-obj.diagnostic.hasWashCompulsion = obj.diagnostic.wash_nBouts > 0;
-obj.diagnostic.hasCheckCompulsion = obj.diagnostic.check_nBouts > 0;
-obj.diagnostic.hasMixedCompulsion = obj.diagnostic.mixed_nBouts > 0;
-obj.diagnostic.hasCompulsion = obj.diagnostic.all_nBouts > 0;
+% store in object
+obj.diagnostic = diagnostic;
 
 end
 
